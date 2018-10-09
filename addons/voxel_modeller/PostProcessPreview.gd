@@ -133,8 +133,8 @@ func outline_pass():
 	var tex = ImageTexture.new()
 	tex.create_from_image(image,2)
 	texture = tex
-#	var frame = float($"../AnimationPlayer".current_animation_position)
-#	rendered_frames[frame] = image
+	var frame = float($"../AnimationPlayer".current_animation_position)
+	rendered_frames[frame] = image
 	return image
 
 func save_start():
@@ -165,18 +165,20 @@ func save_spritesheet(player,animation_name):
 	var dir = Directory.new()
 	var directories = export_directory
 	dir.make_dir_recursive(directories)
+	var first_frame_key = rendered_frames.keys()[0];
 	var colrow = ceil(sqrt(player.current_animation_length / 1))
-	var xinc = rendered_frames[0].get_width()
-	var yinc = rendered_frames[0].get_height()
-	var w = rendered_frames[0].get_width() * colrow
-	var h = rendered_frames[0].get_height() * colrow
+	var xinc = rendered_frames[first_frame_key].get_width()
+	var yinc = rendered_frames[first_frame_key].get_height()
+	var w = rendered_frames[first_frame_key].get_width() * colrow
+	var h = rendered_frames[first_frame_key].get_height() * colrow
 	var image = Image.new()
 	image.create(w,h,false,Image.FORMAT_RGBA8)
 	var i = 0
 	for y in range(0,colrow):
 		for x in range(0,colrow):
 			if(i < rendered_frames.keys().size()):
-				image.blit_rect(rendered_frames[i],Rect2(0,0, xinc, yinc),Vector2(x * xinc, y * yinc))
+				var frame_key = rendered_frames.keys()[i]
+				image.blit_rect(rendered_frames[frame_key],Rect2(0,0, xinc, yinc),Vector2(x * xinc, y * yinc))
 			i += 1
 	print("saving: ", directories + "/" + animation_name +".png")
 	image.save_png(directories + "/" + animation_name +".png")

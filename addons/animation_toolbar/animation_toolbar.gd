@@ -35,7 +35,7 @@ func _enter_tree():
 
 func scene_changed(scene):
 	var scene_root = get_tree().get_edited_scene_root()
-	if(get_tree().get_nodes_in_group("frame_by_frame_helper").size() == 0):
+	if(get_tree().get_nodes_in_group("frame_by_frame_helper").size() == 0 || !animation_button):
 		return
 	animation_player = get_tree().get_nodes_in_group("frame_by_frame_helper")[0]
 	animation_button.clear()
@@ -78,7 +78,7 @@ func _process(delta):
 		return
 	if(scene_root && !animation_player && get_tree().get_nodes_in_group("frame_by_frame_helper").size() > 0 || animation_player && animation_player.get_animation_list() != animations):
 		animation_player = get_tree().get_nodes_in_group("frame_by_frame_helper")[0]
-		if(!animation_player):
+		if(!animation_player || !animation_button):
 			return
 		animation_button.clear()
 		animations = animation_player.get_animation_list()
