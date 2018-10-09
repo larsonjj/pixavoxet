@@ -133,8 +133,8 @@ func outline_pass():
 	var tex = ImageTexture.new()
 	tex.create_from_image(image,2)
 	texture = tex
-	var frame = float($"../AnimationPlayer".current_animation_position)
-	rendered_frames[frame] = image
+	#var frame = float($"../AnimationPlayer".current_animation_position)
+	#rendered_frames[frame] = image
 	return image
 
 func save_start():
