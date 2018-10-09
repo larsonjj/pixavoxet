@@ -10,8 +10,8 @@ export var inner_outline_depth_check = 2.0
 export(NodePath) var camera_path
 
 var frame_count = 0
-var last_position = 0
-var last_image = null
+# var last_position = 0
+# var last_image = null
 var rendered_frames = {}
 
 
